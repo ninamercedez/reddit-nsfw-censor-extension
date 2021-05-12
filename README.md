@@ -29,7 +29,7 @@ It requires running local [NudeNet](https://github.com/notAI-tech/NudeNet) serve
     - NOTE: you will have to repeat this step any time the servers stop; e.g., when you restart your computer
 
 2. Set up and run the extension
-    - Download the [extension release]() from Github and unzip
+    - Download the [extension release](https://github.com/ousideti/reddit-nsfw-censor-extension/archive/refs/tags/0.0.0.1.zip) from Github and unzip
     - Note the location of this download, referred to as `{YOUR_EXTENSION_RELEASE_LOCATION}`
     - open Chrome or another Chromium browser (e.g. Brave)
     - navigate to `chrome://extensions`
