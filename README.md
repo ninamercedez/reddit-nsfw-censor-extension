@@ -18,7 +18,7 @@ It requires running local [NudeNet](https://github.com/notAI-tech/NudeNet) serve
 1. Set up and run local NudeNet servers:
     - Download & install [Docker Desktop](https://www.docker.com/products/docker-desktop)
     - Start Docker
-    - Download the [extension source](https://github.com/ousideti/reddit-nsfw-censor-extension/archive/refs/heads/master.zip) from GitHub
+    - Download the [extension source](https://github.com/ousideti/reddit-nsfw-censor-extension/archive/refs/heads/master.zip) from GitHub and unzip
     - Note the location of this download, referred to as `{YOUR_EXTENSION_SOURCE_LOCATION}`
     - Open a terminal:
         - `cd {YOUR_EXTENSION_SOURCE_LOCATION}`
