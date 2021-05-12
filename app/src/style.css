@@ -1,0 +1,10 @@
+.popup {
+  text-align: center;
+  width: 400px;
+  padding: 1rem;
+}
+
+.popup form {
+  display: flex;
+  flex-direction: column;
+}

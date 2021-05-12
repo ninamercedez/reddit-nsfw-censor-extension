@@ -1,0 +1,114 @@
+body img {
+  opacity: 0;
+}
+
+body.sfw img {
+  opacity: 1;
+}
+
+body.nsfw img {
+  opacity: 0;
+}
+
+.n__blocker, .n__blocker--pixel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(20px);
+  opacity: 1;
+  transition: opacity .5s ease-out;
+  z-index: 0;
+  height: auto;
+}
+
+.n__blocker {
+  opacity: 0;
+  height: 100%;
+}
+
+body.loaded .n__wrapper .n__blocker {
+  z-index: 1;
+}
+
+.n__wrapper--video .n__blocker,
+.n__wrapper--iframe .n__blocker {
+  opacity: 1;
+}
+
+/* .n__wrapper--pixel-blocked img, */
+.n__wrapper--status-censored img,
+.n__wrapper--status-safe img {
+  opacity: 1 !important;
+}
+
+.n__wrapper.n__wrapper--status-censored .n__blocker,
+.n__wrapper.n__wrapper--status-safe .n__blocker,
+.n__wrapper.n__wrapper--status-censored .n__blocker--pixel,
+.n__wrapper.n__wrapper--status-safe .n__blocker--pixel {
+  opacity: 0;
+}
+
+.n__wrapper.n__wrapper--level-10.n__wrapper--nudity-f .n__blocker{
+  opacity: 1;
+  backdrop-filter: blur(9px);
+}
+
+.n__wrapper.n__censored img {
+  opacity: 1,
+}
+
+.n__censor {
+  position: absolute;
+  z-index: 1;
+}
+
+.n__wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.n__tag {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  right: 15px;
+  top: 15px;
+  border-radius: 15px;
+  border: 3px solid white;
+  z-index: 3;
+}
+
+.n__tag--sanitizing {
+  position: absolute;
+  padding: 14px;
+  background: black;
+  color: white;
+  left: 50%;
+  top: 50%;
+  border-radius: 5px;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+}
+
+.n__wrapper.n__wrapper--status-censored .n__tag--sanitizing,
+.n__wrapper.n__wrapper--status-safe .n__tag--sanitizing {
+  display: none;
+}
+
+.n__tag--status-working {
+  background: #ddd;
+}
+
+.n__tag--status-safe {
+  background: #0d81ba;
+}
+
+.n__tag--status-censored {
+  background: #00cc00;
+}
+
+.n__tag--status-error {
+  background: red;
+}
