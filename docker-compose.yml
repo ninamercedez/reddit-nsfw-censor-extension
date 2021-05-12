@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  detector:
+    build:
+      context: .
+      dockerfile: api/Dockerfile.detector
+    ports:
+      - 8040:8080
+  classifier:
+    build:
+      context: .
+      dockerfile: api/Dockerfile.classifier
+    ports:
+      - 8041:8080

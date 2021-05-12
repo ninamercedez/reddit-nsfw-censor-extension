@@ -1,0 +1,3 @@
+FROM notaitech/nudenet:classifier
+
+COPY app_classifier.py /app/_app.py

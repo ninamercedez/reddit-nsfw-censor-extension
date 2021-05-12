@@ -1,0 +1,3 @@
+FROM notaitech/nudenet:detector
+
+COPY app_detector.py /app/_app.py
