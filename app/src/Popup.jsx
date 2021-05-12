@@ -11,12 +11,8 @@ import {
 } from './constants'
 import './style.css';
 
-window.n = {}
-window.n.detectionServerStatus = 0
-window.n.classificationServerStatus = 0
-
 const getSettings = () => new Promise(resolve => {
-  chrome.storage.local.get(['n__settings'], (settings) => {
+  window.chrome.storage.local.get(['n__settings'], (settings) => {
     resolve(settings['n__settings'])
   })
 })
@@ -105,6 +101,18 @@ const Popup = () => {
   const checkClassificationServerInterval = useInterval(checkClassificationServerOnline, 1000)
   const checkDetectionServerInterval = useInterval(checkDetectionServerOnline, 1000)
 
+  const detectionServerStatus = (
+    isDetectionServerThinking
+      ? 'working'
+      : (detectionServerOnline ? 'online' : 'offline')
+  )
+
+  const classificationServerStatus = (
+    isClassificationServerThinking
+      ? 'working'
+      : (classificationServerOnline ? 'online' : 'offline')
+  )
+
   useEffect(() => {
     setIsClassificationServerThinking(true)
   }, [classificationServerUrl])
@@ -122,19 +130,19 @@ const Popup = () => {
 
   useEffect(() => {
     console.log('settings are', settings)
-    chrome.storage.local.set({ 'n__settings': prepData(settings) })
+    window.chrome.storage.local.set({ 'n__settings': prepData(settings) })
   }, [settings])
 
   return (
     <div className="popup">
-      <h4>Settings</h4>
+      <h3>Settings</h3>
       <Form onSubmit={setSettings} initialValues={settings}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <label className="bold">Level</label>
-            <span className="row">
+            <section>
+              <label className="bold">Level</label>
               <FieldSelect name="censor-level" options={Object.keys(CENSOR_LEVELS).map(k => ({ label: CENSOR_LEVELS[k].label, value: k }))} />
-            </span>
+            </section>
             {/* <span className="row">
               <table>
                 <thead>
@@ -164,25 +172,29 @@ const Popup = () => {
                 </tbody>
               </table>
             </span> */}
-            <label class="bold">Servers</label>
-            <span className="row">
+            <section>
               <label for="classification-server-url">Classification server url</label>
-              <FieldInput name="classification-server-url" type="text" />
-              {isClassificationServerThinking && '...'}
-              {!isClassificationServerThinking && (classificationServerOnline ? 'online' : 'offline')}
-            </span>
-            <span className="row">
+              <span className="row">
+                <FieldInput name="classification-server-url" type="text" />
+                <span className={`status-light status-light--status-${classificationServerStatus}`} />
+              </span>
+            </section>
+            <section>
               <label for="detection-server-url">Detection server url</label>
-              <FieldInput name="detection-server-url" type="text" />
-              {isDetectionServerThinking && '...'}
-              {!isDetectionServerThinking && (detectionServerOnline ? 'online' : 'offline')}
-            </span>
-            <input type="submit" value="Save" />
+              <span className="row">
+                <FieldInput name="detection-server-url" type="text" />
+                <span className={`status-light status-light--status-${detectionServerStatus}`} />
+              </span>
+            </section>
+            <section>
+              <input type="submit" value="Save" />
+            </section>
           </form>
         )}
       </Form>
-
-      <button onClick={restoreDefaults}>Restore defaults</button>
+      <section>
+        <button onClick={restoreDefaults}>Restore defaults</button>
+      </section>
     </div >
   )
 }

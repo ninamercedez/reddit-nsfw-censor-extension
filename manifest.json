@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Reddit NSFW Censor",
-  "version": "0.1",
+  "version": "0.0.1-alpha.1",
   "permissions": [
     "storage",
     "downloads",
@@ -22,6 +22,7 @@
         "app/build/static/js/jquery.min.js",
         "app/build/static/js/lodash.min.js",
         "app/build/static/js/pixelate.js",
+        "app/build/static/js/common.js",
         "app/build/static/js/contentScript.js"
       ],
       "css": [
@@ -32,11 +33,12 @@
   "background": {
     "scripts": [
       "app/build/static/js/lodash.min.js",
+      "app/build/static/js/common.js",
       "app/build/static/js/background.js"
     ]
   },
   "browser_action": {
     "default_popup": "./app/build/index.html"
   },
-  "content_security_policy": "script-src 'self' 'sha256-XmEPl08c7uHTke2+aynVK2ZX6sN+/gWrC6By9UPp/Ng='; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'sha256-3hOPASwVoZ282wI6ekiu4B5cqK3utyyjyIv+1h3DdmI='; object-src 'self'"
 }

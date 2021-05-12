@@ -22,6 +22,9 @@ const blobToBase64 = blob => {
 };
 
 const processImages = async (images) => {
+  const classificationServerUrl = await getSetting('classification-server-url')
+  const detectionServerUrl = await getSetting('detection-server-url')
+
   console.log('processing', images)
   if (!images.length) {
     return []
@@ -43,7 +46,7 @@ const processImages = async (images) => {
 
   console.log('after fetch')
   console.log(images)
-    
+
   images = await Promise.all(
     images.map(async x => {
       if (x.status !== 'fetched') {
@@ -59,7 +62,7 @@ const processImages = async (images) => {
 
   const classifiableImages = filterImagesByStatus(images, 'fetched')
   const classification = classifiableImages.length
-    ? await (await fetch('http://localhost:8041/sync', {
+    ? await (await fetch(`${classificationServerUrl}/sync`, {
       method: 'POST',
       body: JSON.stringify({
         data: classifiableImages
@@ -86,20 +89,20 @@ const processImages = async (images) => {
 
   const unsafeImages = classifiedImages
     .filter(i => i.classification.unsafe > window.n.config.safetyLevel)
-  
-    unsafeImages.forEach(u => {
+
+  unsafeImages.forEach(u => {
     images.find(i => i.src === u.src).status = 'unsafe'
   })
-  
+
   const safeImages = classifiedImages
     .filter(i => i.classification.unsafe <= window.n.config.safetyLevel)
-  
-    safeImages.forEach(s => {
+
+  safeImages.forEach(s => {
     images.find(i => i.src === s.src).status = 'safe'
   })
-    
+
   const detection = unsafeImages.length
-    ? await (await fetch('http://localhost:8040/sync', {
+    ? await (await fetch(`${detectionServerUrl}/sync`, {
       method: 'POST',
       body: JSON.stringify({
         data: unsafeImages

@@ -3,94 +3,94 @@ window.n = {
     minImgWidth: 100,
     censor: {
       breastsNude: {
-        3: {
+        medium: {
           blur: 9,
           pixelation: .94,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       breastsCovered: {
-        3: {
+        medium: {
           blur: 4,
           pixelation: .85,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       genitalsNude: {
-        3: {
+        medium: {
           background: 'rgba(0, 0, 0, .87)',
           zIndex: 2,
           blur: 7,
           pixelation: .95,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       genitalsCovered: {
-        3: {
+        medium: {
           blur: 7,
           pixelation: .9,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       anus: {
-        3: {
+        medium: {
           blur: 4,
           pixelation: .93,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       buttocksNude: {
-        3: {
+        medium: {
           blur: 6,
           pixelation: .92,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       buttocksCovered: {
-        3: {
+        medium: {
           blur: 3,
           pixelation: .85,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       belly: {
-        3: {
+        medium: {
           blur: 3,
           pixelation: .9,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       face: {
-        3: {
+        medium: {
           blur: 7,
           pixelation: .94,
         },
-        10: {
+        'very-high': {
           background: 'black',
         },
       },
       armpits: {
-        3: {
+        medium: {
           blur: 2,
           pixelation: .8,
         },
-        10: {
+        'very-high': {
           blur: 10,
         },
       }
@@ -108,9 +108,26 @@ const blurClassName = "n__blur"
 const barClassName = "n__bar"
 const tagClassName = "n__tag"
 const sanitizingTagClassName = 'n__tag--sanitizing'
-const CENSOR_LEVEL = 3
+
+const DEFAULT_SETTINGS = {
+  'censor-level': 'medium',
+  'detection-server-url': 'http://localhost:8040',
+  'classification-server-url': 'http://localhost:8041',
+}
+
+let CENSOR_LEVEL
+
+const initSettings = async () => {
+  const settings = await getSettings()
+  if (_.isEmpty(settings)) {
+    window.chrome.storage.local.set({ 'n__settings': DEFAULT_SETTINGS })
+  }
+  CENSOR_LEVEL = await getSetting('censor-level')
+}
+initSettings()
 
 jQuery($ => {
+  console.log('censor level is', CENSOR_LEVEL)
 
   window.n.$ = $
   const findImages = () => $('img').toArray().filter(x => x.getBoundingClientRect().width > 100 && x.getBoundingClientRect().height > 100)
@@ -210,6 +227,9 @@ jQuery($ => {
   )
 
   const censorImages = images => {
+    if (!CENSOR_LEVEL) {
+      console.error('censor level not set')
+    }
     // console.log('censoring images', images)
     images.map(({ src, detection, status }) => {
       const els = $(`img[src="${src}"]`).toArray()

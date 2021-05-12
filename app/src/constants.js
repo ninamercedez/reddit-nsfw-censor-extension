@@ -1,6 +1,6 @@
 export const CENSOR_LEVEL_KEYS = {
   // VERY_LOW: 'very-low',
-  LOW: 'low',
+  // LOW: 'low',
   MEDIUM: 'medium',
   // HIGH: 'high',
   // VERY_HIGH: 'very-high',
@@ -10,9 +10,9 @@ export const CENSOR_LEVELS = {
   // [CENSOR_LEVEL_KEYS.VERY_LOW]: {
   //   label: 'Very low',
   // },
-  [CENSOR_LEVEL_KEYS.LOW]: {
-    label: 'Low',
-  },
+  // [CENSOR_LEVEL_KEYS.LOW]: {
+  //   label: 'Low',
+  // },
   [CENSOR_LEVEL_KEYS.MEDIUM]: {
     label: 'Medium',
   },

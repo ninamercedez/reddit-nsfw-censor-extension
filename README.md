@@ -49,7 +49,7 @@ It requires running local [NudeNet](https://github.com/notAI-tech/NudeNet) serve
 # Doing development
   - set up the dependencies from step 1
   - open `{YOUR_EXTENSION_SOURCE_LOCATION}` in your editor
-  - in that folder, run:
+  - in the `app` folder, run:
     - `yarn` or `npm i` to install dependencies
     - `yarn watch` or `npm run watch` to build the project in watch mode
     - in chrome, navigate to `chrome://extensions`
