@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Reddit NSFW Censor",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.0.2",
   "permissions": [
     "storage",
     "downloads",
